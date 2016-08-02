@@ -16,28 +16,30 @@
             $('#buttonsView').append(a);
         }
     }    
-
-
     buttonExpress();
-    // displayExpress();
+   
 
 
-  // function displayExpress() {
+  $('#buttonsView').on('click', function() {
 
-  //   var express = $(this).attr('data-name');
-  //   var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + express + "&api_key=dc6zaTOxFJmzC&limit=10";
+    var express = $(this).attr('data-name');
+    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + express + "&api_key=dc6zaTOxFJmzC&limit=10";
         
-  //       $.ajax({url: queryURL, method: 'GET'}).done(function(response) {
-  //           var expressDiv = $('<div class="express">');
-  //          //creates the rating
-  //           var rating = response.Rated;
-  //           var displayRated= $('<p>').text("Rating: " + rating);
-  //           expressDiv.append(displayRated);
-  //           //creates the image
-  //           var image = $('<img>').attr("src" );
-  //           expressDiv.append(image);
-  //       });
-  //   }
+        $.ajax({url: queryURL, method: 'GET'})
+        .done(function(response) {
+           var imageView = response.data.image_original_url;
+           var expressImage = $('<img>');
+           expressImage.attr('src', imageView);
+           expressImage.attr('alt', 'express image');
+           $("#expressView").prepend(expressImage);
+
+           //  var expressDiv = $('<div class="express">');
+           //  var rating = response.Rated;
+           //  var displayRated= $('<p>').text("Rating: " + rating);
+           //  expressDiv.append(displayRated);
+        });
+    })
+
 
 
 
@@ -48,12 +50,13 @@ $('#addExpress').on('click', function(){
     topics.push(express);
     buttonExpress();
     return false;
+        
 });
 
 
 
-
-
+           
+          
 
   
 
