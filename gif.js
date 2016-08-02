@@ -27,16 +27,19 @@
         
         $.ajax({url: queryURL, method: 'GET'})
         .done(function(response) {
-           var imageView = response.data.image_original_url;
-           var expressImage = $('<img>');
-           expressImage.attr('src', imageView);
-           expressImage.attr('alt', 'express image');
-           $("#expressView").prepend(expressImage);
+            var results = response.data;
+                for ( var j=0; j < results.length; j++) {
+                       var imageView = response.data.image_original_url;
+                       var expressImage = $('<img>');
+                       expressImage.attr('src', imageView);
+                       expressImage.attr('alt', 'express image');
+                       $("#expressView").prepend(expressImage);
 
-           //  var expressDiv = $('<div class="express">');
-           //  var rating = response.Rated;
-           //  var displayRated= $('<p>').text("Rating: " + rating);
-           //  expressDiv.append(displayRated);
+                       //  var expressDiv = $('<div class="express">');
+                       //  var rating = response.Rated;
+                       //  var displayRated= $('<p>').text("Rating: " + rating);
+                       //  expressDiv.append(displayRated);
+                }
         });
     })
 
