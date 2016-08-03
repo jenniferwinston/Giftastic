@@ -1,4 +1,5 @@
 // Initial array of emotions
+$(document).ready(function(){
     var topics = ['Happy', 'Sassy', 'Frightened', 'Laughing', 'Scared', 'Mind Blown', 'Hungry', 'Confused'];
 
     // ========================================================
@@ -20,28 +21,34 @@
    
 
 
-  $('#buttonsView').on('click', function() {
+  $(document).on('click', '.expression', function() {
 
-    var express = $(this).attr('data-name');
+    var express = $(this).html(); 
+    console.log(express);
+    
     var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + express + "&api_key=dc6zaTOxFJmzC&limit=10";
-        
+        console.log(queryURL);
         $.ajax({url: queryURL, method: 'GET'})
         .done(function(response) {
+            // grabs the data
             var results = response.data;
+            $('#expressView').empty();
+                //loops through the data
                 for ( var j=0; j < results.length; j++) {
-                       var imageView = results[j].images.fixed_height;
-                        var still = results[j].images.fixed_height_still;
-                        console.log(imageView);
-                       // var expressImage = $('<img>');
-                       // expressImage.attr('src', imageView);
-                       // expressImage.attr('alt', 'express image');
-                       // $("#expressView").prepend(expressImage);
+                    var imageDiv = $('<div>');
+                    var imageView = results[j].images.fixed_height.url;
+                    // var still = results[j].images.fixed_height_still;
+                        console.log(imageView);  
+                    var expressImage = $('<img>').attr("src", imageView);
+                       imageDiv.append() 
+
+                       $('#expressView').prepend(expressImage);
                        
 
-                       //  var expressDiv = $('<div class="express">');
-                       //  var rating = response.Rated;
-                       //  var displayRated= $('<p>').text("Rating: " + rating);
-                       //  expressDiv.append(displayRated);
+                        // var expressDiv = $('<div class="express">');
+                        // var rating = response.Rated;
+                        // var displayRated= $('<p>').text("Rating: " + rating);
+                        // expressDiv.append(displayRated);
                 }
         });
     })
@@ -67,7 +74,7 @@ $('#addExpress').on('click', function(){
 
 
           
-          
+        });  
 
   
 
