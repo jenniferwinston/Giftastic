@@ -29,11 +29,14 @@
         .done(function(response) {
             var results = response.data;
                 for ( var j=0; j < results.length; j++) {
-                       var imageView = response.data.image_original_url;
-                       var expressImage = $('<img>');
-                       expressImage.attr('src', imageView);
-                       expressImage.attr('alt', 'express image');
-                       $("#expressView").prepend(expressImage);
+                       var imageView = results[j].images.fixed_height;
+                        var still = results[j].images.fixed_height_still;
+                        console.log(imageView);
+                       // var expressImage = $('<img>');
+                       // expressImage.attr('src', imageView);
+                       // expressImage.attr('alt', 'express image');
+                       // $("#expressView").prepend(expressImage);
+                       
 
                        //  var expressDiv = $('<div class="express">');
                        //  var rating = response.Rated;
@@ -49,16 +52,21 @@
 
 //adding new button
 $('#addExpress').on('click', function(){
+    if ($('#express-input').val().trim() == ''){
+      alert('Input can not be left blank');
+   }
+   else {
     var express = $('#express-input').val().trim();
     topics.push(express);
     buttonExpress();
     return false;
-        
+    }
+
 });
 
 
 
-           
+          
           
 
   
