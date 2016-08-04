@@ -41,7 +41,7 @@ $(document).ready(function(){
                     var imageView = results[j].images.fixed_height.url;
                     var still = results[j].images.fixed_height_still.url;
                         // console.log(imageView);  
-                    var expressImage = $('<img>').attr("src", imageView);
+                    var expressImage = $('<img>').attr("src", still);
                     $('#expressView').prepend(expressImage);
                     
                     
@@ -64,27 +64,27 @@ $(document).ready(function(){
                      $(this).attr('data-state', 'still');
                     }
 
-        });
+                });
 
 
 
 
                 }
-        });
-    })
+        }); // done response
+    }) // document on click
 
        
 
 
 //adding new button
 $('#addExpress').on('click', function(){
-
     if ($('#express-input').val().trim() == ''){
       alert('Input can not be left blank');
    }
    else {
     var express = $('#express-input').val().trim();
     topics.push(express);
+    $('#express-input').val('');
     buttonExpress();
     return false;
 
