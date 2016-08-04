@@ -41,43 +41,40 @@ $(document).ready(function(){
                     var imageView = results[j].images.fixed_height.url;
                     var still = results[j].images.fixed_height_still.url;
                         // console.log(imageView);  
-                    var expressImage = $('<img>').attr("src", still);
+                    var expressImage = $('<img>').attr("src", still).attr('data-animate', imageView).attr('data-still', still);
+                    expressImage.attr('data-state', 'still');
                     $('#expressView').prepend(expressImage);
+                    expressImage.on('click', playGif);
                     
-                    
-
                     // pulling the rating
                         var rating = results[j].rating;
                             // console.log(rating);
                         var displayRated= $('<p>').text("Rating: " + rating);
                         $('#expressView').prepend(displayRated);
-                
+            
+                } //for loop
+        }); // done response
 
-                    $('#expressView').on('click', function(){ 
+        function playGif() { 
                     var state = $(this).attr('data-state');
                     console.log(state);
                  if ( state == 'still'){
                      $(this).attr('src', $(this).data('animate'));
                       $(this).attr('data-state', 'animate');
-                 }else{
+                 } else{
                      $(this).attr('src', $(this).data('still'));
                      $(this).attr('data-state', 'still');
                     }
 
-                });
-
-
-
-
-                }
-        }); // done response
+                } //on click express
+                
     }) // document on click
 
        
 
 
 //adding new button
-$('#addExpress').on('click', function(){
+$(document).on('click', '#addExpress', function(){
     if ($('#express-input').val().trim() == ''){
       alert('Input can not be left blank');
    }
