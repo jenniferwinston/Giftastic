@@ -2,7 +2,9 @@
 	font-family: 'Exo 2', sans-serif;
 	text-align: center;
 }
-
+#color {
+	background-color: teal;
+}
 
 .expression, #addExpress{
 	padding: 8px;

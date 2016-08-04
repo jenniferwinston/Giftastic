@@ -20,45 +20,65 @@ $(document).ready(function(){
     buttonExpress();
    
 
-
+//on button click
   $(document).on('click', '.expression', function() {
 
     var express = $(this).html(); 
     console.log(express);
     
     var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + express + "&api_key=dc6zaTOxFJmzC&limit=10";
-        console.log(queryURL);
+        // console.log(queryURL);
         $.ajax({url: queryURL, method: 'GET'})
         .done(function(response) {
             // grabs the data
             var results = response.data;
+            // console.log(results);
+            //empties the div before adding more gifs
             $('#expressView').empty();
                 //loops through the data
                 for ( var j=0; j < results.length; j++) {
                     var imageDiv = $('<div>');
                     var imageView = results[j].images.fixed_height.url;
-                    // var still = results[j].images.fixed_height_still;
-                        console.log(imageView);  
+                    var still = results[j].images.fixed_height_still.url;
+                        // console.log(imageView);  
                     var expressImage = $('<img>').attr("src", imageView);
-                       imageDiv.append() 
+                    $('#expressView').prepend(expressImage);
+                    
+                    
 
-                       $('#expressView').prepend(expressImage);
-                       
+                    // pulling the rating
+                        var rating = results[j].rating;
+                            // console.log(rating);
+                        var displayRated= $('<p>').text("Rating: " + rating);
+                        $('#expressView').prepend(displayRated);
+                
 
-                        // var expressDiv = $('<div class="express">');
-                        // var rating = response.Rated;
-                        // var displayRated= $('<p>').text("Rating: " + rating);
-                        // expressDiv.append(displayRated);
+                    $('#expressView').on('click', function(){ 
+                    var state = $(this).attr('data-state');
+                    console.log(state);
+                 if ( state == 'still'){
+                     $(this).attr('src', $(this).data('animate'));
+                      $(this).attr('data-state', 'animate');
+                 }else{
+                     $(this).attr('src', $(this).data('still'));
+                     $(this).attr('data-state', 'still');
+                    }
+
+        });
+
+
+
+
                 }
         });
     })
 
-
-
+       
 
 
 //adding new button
 $('#addExpress').on('click', function(){
+
     if ($('#express-input').val().trim() == ''){
       alert('Input can not be left blank');
    }
@@ -67,14 +87,14 @@ $('#addExpress').on('click', function(){
     topics.push(express);
     buttonExpress();
     return false;
+
     }
 
 });
 
 
 
-          
-        });  
+});  //document ready
 
   
 
